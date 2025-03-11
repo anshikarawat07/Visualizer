@@ -1,0 +1,225 @@
+body{
+    font-family:  "Montserrat", sans-serif;;
+    height: 0vh;
+    background-image: url('bg.webp');
+    background-size:cover;
+    font-weight: 600;
+}
+.Visualizer {
+    display: block;
+    color: rgb(29, 29, 82);
+    align-self: center;
+    border: 0.1rem solid rgb(13, 37, 109); 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 2rem;
+    padding: 1rem; 
+    margin-left: 35vw; 
+    margin-top: 20vh;
+    width:30vw;
+    backdrop-filter: blur(20px); 
+}
+
+h1{
+    text-align: center;
+    font-size: 3rem;
+}
+.data-structure,.search-algo, .sort-algo
+{
+    display: flex;
+    font-size:larger;
+    gap: 1rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+button
+{
+    width: fit-content;
+    margin-top: 0.5rem;
+    font-weight:600;
+    font-size:1.25rem;
+    border-radius: 1rem;
+    transition: background 0.3s, transform 0.2s;
+}
+.Visualizer button
+{
+    color: aliceblue;
+    background-color: rgb(8, 8, 88);
+}
+.Visualizer button:hover
+{
+    background-color: white;
+    color: rgb(8, 8, 88);
+    transform: scale(1.05);
+}
+
+
+.Searching-Visualizer
+{
+    display: none;
+    color: rgb(58, 35, 7);
+    align-self: center;
+    border: 0.1rem solid rgb(37, 23, 5); 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 2rem;
+    padding: 1rem; 
+    margin-left: 35vw; 
+    margin-top: 20vh;
+    width:30vw;
+    backdrop-filter: blur(20px); 
+}
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content:space-between ;
+}
+
+.Searching-Visualizer #back ,.Searching-Visualizer #select
+{
+    display: flex;
+    flex-direction: column;
+    color:white;
+    background-color: rgb(58, 35, 7); 
+}
+.Searching-Visualizer #back:hover ,.Searching-Visualizer #select:hover
+{
+    color: rgb(58, 35, 7);
+    background-color:white;
+    transform: scale(1.05);
+}
+
+
+.Sorting-Visualizer
+{
+    display:none;
+    color: rgb(159, 28, 78);
+    align-self: center;
+    border: 0.1rem solid rgb(37, 23, 5); 
+    box-shadow: 0px 0px 5px rgba(121, 4, 57, 0.5);
+    border-radius: 2rem;
+    padding: 1rem; 
+    margin-left: 35vw; 
+    margin-top: 20vh;
+    width:30vw;
+    backdrop-filter: blur(20px); 
+}
+.Linkedlist-Visualizer
+{
+    display: none;
+}
+@media(max-width: 830px) 
+{
+    .Visualizer , .Searching-Visualizer,.Linkedlist-Visualizer , .Sorting-Visualizer{
+        width:50vw;
+        margin-left:25vw;
+    }
+}
+@media(max-width: 500px) 
+{
+    .Visualizer,.Searching-Visualizer,.Linkedlist-Visualizer,.Sorting-Visualizer {
+        width:70vw;
+        margin-left:10vw;
+    }
+}
+.searching, .sorting
+{
+    display: none;
+    justify-content: center;
+    align-self: center;
+    text-align: center;
+    color:white;
+
+}
+ .back
+{
+    position: absolute;
+    bottom: 0rem;
+    align-self: center;
+}
+.input
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1rem;
+    font-family:cursive;
+    
+}
+.input-array
+{
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.bar-container {
+    gap:0.2rem;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    align-self: center;
+    background-color: #f4f4f4;
+    border: 0.2rem solid #333;
+    margin-top: 0.5rem;
+    padding:1rem ;
+    overflow-x: auto;
+    border-radius: 1rem;
+    min-height: 60vh; /* Ensures it takes up enough space */
+}
+
+
+/* ✅ Individual Bars */
+.bar {
+    width: 2rem;
+    background-color: royalblue;
+    text-align: center;
+    color: white;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 0.5rem;
+    transition: 0.3s;
+}
+
+/* ✅ Found (Match) */
+.check {
+    background-color: rgb(21, 5, 116)  !important;
+}
+
+.found {
+    background-color:green !important;
+}
+/* ✅ Not Found (Checked) */
+.not-found {
+    background-color: rgb(215, 17, 17) !important;
+}
+
+
+input{
+    height: 3vh;
+    font-size: medium;
+    font-weight: bold;
+    text-align: center;
+}
+.error-array ,.error-value {
+    color: red;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 5px;
+    display:block;
+}
+
+.compare {
+    background-color: rgb(255, 0, 115) !important; /* Highlight bars being compared */
+}
+
+.min {
+    background-color: orange !important; /* Highlight the current minimum bar */
+}
+
+.sorted {
+    background-color: green !important; /* Final sorted bars */
+}

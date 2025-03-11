@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Leckerli+One&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oregano:ital@0;1&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="Visualizer ">
+        <h1>  Visualizer </h1>
+        <div class="data-structure">
+            <label >
+                <input type="radio" name="option" value="searching" checked>Searching Visualizer
+            </label>
+            <label >
+                <input type="radio" name="option" value="sorting">Sorting Visualizer
+            </label>
+            <label >
+                <input type="radio" name="option" value="Linkedlist">Linkedlist Visualizer
+            </label>
+            <label >
+                <input type="radio" name="option" value="Tree">Tree Visualizer
+            </label>
+            <label >
+                <input type="radio" name="option" value="Graph">Graph Visualizer
+            </label>
+            <button>Select</button>
+        </div>
+    </div>
+
+
+    <div class="Searching-Visualizer">
+        <h1>Searching Visualizer</h1>
+        <div class="search-algo">
+            <label >
+                <input type="radio" name="option-search" value="Linear" checked>Linear Search
+            </label>
+            <label >
+                <input type="radio" name="option-search" value="Binary">Binary Search
+            </label>
+            <label >
+                <input type="radio" name="option-search" value="Jump">Jump Search
+            </label>
+            <div class="button-container">
+                <button id="back">Back</button>
+                <button id="select">Select</button>
+            </div>
+
+        </div>
+        
+    </div>
+
+
+
+    <div class="searching">
+        <h2></h2>
+        <form class="input">
+            <div class="input-array">
+                <label >    
+                    INPUT ARRAY <br>
+                    <input id="array" type="textbox" placeholder="Enter array eg(1,2,3,4)">
+                    <div class="error-array"></div>
+                </label>
+                <label id="value">VALUE TO SEARCH<br>
+                    <input type="number" id="searchValue" placeholder="Enter number">
+                    <div class="error-value"></div>
+                </label>
+            </div>
+        <button id="start" >Start</button>
+    </form>
+        <div class="bar-container"></div>
+        <button class="back" >Back</button>
+    
+    </div>
+
+
+
+
+    <div class="Sorting-Visualizer">
+        <h1>Sorting Visualizer</h1>
+        <div class="sort-algo">
+            <label >
+                <input type="radio" name="option-sort" value="Selection" checked>Selection Sort
+            </label>
+            <label >
+                <input type="radio" name="option-sort" value="Insertion">Insertion Sort
+            </label>
+            <label >
+                <input type="radio" name="option-sort" value="Bubble">Bubble Sort
+            </label>
+            <label >
+                <input type="radio" name="option-sort" value="Merge">Merge  Sort
+            </label>
+            <label >
+                <input type="radio" name="option-sort" value="Quick">Quick Sort
+            </label>
+        </div>
+        <div class="button-container">
+            <button id="back">Back</button>
+            <button id="select">Select</button>
+        </div>
+    </div>
+    
+    <div class="sorting">
+        <h2 ></h2>
+        <form class="input">
+            <div class="input-array">
+                <label >    
+                    INPUT ARRAY <br>
+                    <input id="array" type="textbox" placeholder="Enter array eg(1,2,3,4)">
+                    <div class="error-array"></div>
+                </label>
+            </div>
+        <button id="start" >Start</button>
+    </form>
+        <div class="bar-container"></div>
+        <button class="back" >Back</button>
+    </div>
+
+
+
+    <div class="Linkedlist-Visualizer ">
+        <h1>Linkedlist Visualizer</h1>
+        <label >
+            <input type="radio" name="option-search" value="Selection">Selection Sort
+        </label>
+        <label >
+            <input type="radio" name="option-search" value="Insertion">Insertion Sort
+        </label>
+        <label >
+            <input type="radio" name="option-search" value="Bubble">Bubble Sort
+        </label>
+        <div class="button-container">
+            <button id="back">Back</button>
+            <button id="select">Select</button>
+        </div>
+    </div>
+</body>
+<script src="script.js"></script>
+
+</html>
