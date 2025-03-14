@@ -3,7 +3,7 @@ const Visualizer = document.querySelector(".Visualizer");
 const searchingVisualizer = document.querySelector(".Searching-Visualizer");
 const sortingVisualizer = document.querySelector(".Sorting-Visualizer");
 const linkedListVisualizer = document.querySelector(".Linkedlist-Visualizer");
-
+let currentLinkedList = null;
 const btnVis = Visualizer.querySelector("button");
 const body = document.querySelector("body");
 
@@ -13,6 +13,18 @@ btnVis.addEventListener("click", () => {
     if (optionVis === "searching") searching();
     else if (optionVis === "sorting") sorting();
     else if (optionVis === "Linkedlist") linkedList();
+});
+
+// Back Button Functionality
+document.querySelectorAll("#back").forEach(button => {
+
+    button.addEventListener("click", () => {
+        Visualizer.style.display = "block";
+        searchingVisualizer.style.display = "none";
+        sortingVisualizer.style.display = "none";
+        linkedListVisualizer.style.display = "none";
+        body.style.backgroundImage = "url('bg.webp')";
+    });
 });
 
 // Show Searching Visualizer
@@ -29,7 +41,7 @@ function sorting() {
 
 // Show Linked List Visualizer
 function linkedList() {
-    showSection(linkedListVisualizer, "linkedlist.jpg");
+    showSection(linkedListVisualizer, "linkedlist.avif");
     addEventListeners(linkedListVisualizer);
 }
 
@@ -40,41 +52,35 @@ function showSection(section, bgImage) {
     body.style.backgroundImage = `url('${bgImage}')`;
 }
 
-// Back Button Functionality
-document.querySelectorAll("#back").forEach(button => {
-    button.addEventListener("click", () => {
-        Visualizer.style.display = "block";
-        searchingVisualizer.style.display = "none";
-        sortingVisualizer.style.display = "none";
-        linkedListVisualizer.style.display = "none";
-        body.style.backgroundImage = "url('bg.webp')";
-    });
-});
 
-(document.querySelector(".searching")).querySelector('.back').addEventListener("click", () => {
-    (document.querySelector(".searching")).style.display="none";
-        searchingVisualizer.style.display = "block";
-        body.style.backgroundImage = "url('searching.jpg')";
-        document.querySelector("#array").value="";
-        document.querySelector("#searchValue").value="";
-        document.querySelector(".bar-container").innerHTML = "";
 
-});
-(document.querySelector(".sorting")).querySelector('.back').addEventListener("click", () => {
-    (document.querySelector(".sorting")).style.display="none";
-        sortingVisualizer.style.display = "block";
-        body.style.backgroundImage = "url('searching.jpg')";
-});
 
-    (document.querySelector(".sorting")).querySelector('.back').addEventListener("click", () => {
-        sorting.style.display="none";
-        sortingVisualizer.style.display = "block";
-        body.style.backgroundImage = "url('searching.jpg')";
-    });
+
+//  function handlelinkedlistSubmit(event,option)
+// {
+//     event.preventDefault(); 
+//     let arrayInput = (document.querySelector(".linkedlist-controls")).querySelector("#array").value.trim();
+//     if (validateInput(arrayInput,"ll"))
+//     {
+         
+//         console.log("inside");
+//         let array = arrayInput.split(",").map(num => parseInt(num.trim())).filter(num => !isNaN(num));
+//         document.querySelector(".linkedlist-controls").querySelector(".controls").style.display="block";
+//         let nodes = document.querySelectorAll(".node");
+//         if (option === 'Single') linkedList = new LinkedList("Single");
+//         else if (option === 'Double') linkedList = new LinkedList("Double");
+//         else if (option === 'Circular') linkedList = new LinkedList("Circular");
+
+//     }
+// }
+
 // Add Event Listeners for Algorithm Selection
 function addEventListeners(section) {
-    
+    console.log(section);
     section.querySelector("#select").addEventListener("click", () => {
+    console.log("Section:", section);
+    console.log("Select Button:", section.querySelector("#select"));
+    console.log("Checked Input:", section.querySelector('input[name*="option"]:checked'));
         let option = section.querySelector('input[name*="option"]:checked').value;
         section.style.display = "none";
         runAlgorithm(option,section);
@@ -93,7 +99,6 @@ function runAlgorithm(option,section) {
             let h2 = document.querySelector('.searching').querySelector('h2');
             h2.innerHTML=option+' Search';
             let form = document.querySelector('.searching').querySelector(".input");
-            form.removeEventListener("submit", handleSearchSubmit);
             form.addEventListener("submit", (event) => handleSearchSubmit(event, option));
         }
     else if(section.className === "Sorting-Visualizer")
@@ -103,20 +108,44 @@ function runAlgorithm(option,section) {
         let h2 = document.querySelector('.sorting').querySelector('h2');
         h2.innerHTML=option+' Sort';
         let form = document.querySelector('.sorting').querySelector(".input");
-        form.removeEventListener("submit", handleSortSubmit);
         form.addEventListener("submit", (event) => handleSortSubmit(event, option));
     }
+    else if(section.className === "Linkedlist-Visualizer")
+        {
+            console.log("Linkelist");
+            document.querySelector(".linkedlist-controls").style.display = "block";
+            let h2 = document.querySelector('.linkedlist-controls').querySelector('h2');
+            h2.innerHTML=option+' Linkedlist';
+            let form = document.querySelector('.linkedlist-controls').querySelector(".input");
+            form.addEventListener("submit", (event) => handlelinkedlistSubmit(event, option));
+        }
     
 }
 
+
+
+(document.querySelector(".linkedlist-controls")).querySelector('.back').addEventListener("click", () => {
+    console.log("back");
+    (document.querySelector(".linkedlist-controls")).style.display="none";
+        linkedListVisualizer.style.display = "block";
+        body.style.backgroundImage = "url('searching.jpg')";
+        (document.querySelector(".linkedlist-controls")).querySelector("#array").value="";
+ });
+ (document.querySelector(".sorting")).querySelector('.back').addEventListener("click", () => {
+    (document.querySelector(".sorting")).style.display="none";
+        sortingVisualizer.style.display = "block";
+        body.style.backgroundImage = "url('searching.jpg')";
+        (document.querySelector(".sorting")).querySelector("#array").value="";
+        (document.querySelector(".sorting")).querySelector(".bar-container").innerHTML = "";
+});
 // Handle Search Form Submission
 function handleSearchSubmit(event, option) {
     event.preventDefault();
 
     let arrayInput = document.querySelector("#array").value.trim();
-    let searchValue = parseInt(document.querySelector("#searchValue").value);
+    let searchValue = document.querySelector("#searchValue").value;
 
-    if (validateInputs(arrayInput, searchValue)) {
+    if (validateInput_search(arrayInput, searchValue)) {
         let array = arrayInput.split(",").map(num => parseInt(num.trim())).filter(num => !isNaN(num));
         visualizeArray(".searching",array);
 
@@ -138,7 +167,7 @@ function handleSortSubmit(event, option) {
 
     let arrayInput =(document.querySelector(".sorting")).querySelector("#array").value.trim();
 
-    if (validateInputs_Sort(arrayInput)) {
+    if (validateInput(arrayInput,"sort")) {
         console.log("inside");
         let array = arrayInput.split(",").map(num => parseInt(num.trim())).filter(num => !isNaN(num));
         visualizeArray(".sorting",array);
@@ -147,7 +176,8 @@ function handleSortSubmit(event, option) {
         if (option ==="Selection") selectionSort(array, bars);
         else if (option === "Insertion") insertionSort(array, bars);
         else if (option === "Bubble") bubbleSort(array, bars);
-        else if(option==="Merge") mergeSort(array,bars);
+        else if(option==="Merge") 
+            mergeSort(array,bars);
         else quickSort(array,bars);
     }
 }
@@ -166,7 +196,7 @@ function visualizeArray(name,array) {
     });
 }
 // Validate User searchin Inputs
-function validateInputs(arrayInput, searchValue) {
+function validateInput_search(arrayInput, searchValue) {
     let isValid = true;
     const arrayPattern = /^\d+(,\d+)*$/;
 
@@ -185,7 +215,7 @@ function validateInputs(arrayInput, searchValue) {
     if (searchValue ==="") {
         displayError(errorV, "⚠ Enter value to search!");
         isValid = false;
-    } else if (isNaN(searchValue)) {
+    } else if (isNaN(parseInt(searchValue))) {
         displayError(errorV, "⚠ The search value must be a number!");
         isValid = false;
     } else {
@@ -196,15 +226,25 @@ function validateInputs(arrayInput, searchValue) {
     return isValid;
 }
 //validat sort 
-function validateInputs_Sort(arrayInput) {
-    console.log("validate");
+function validateInput(arrayInput,name) {
     let isValid = true;
     const arrayPattern = /^\d+(,\d+)*$/;
+    let errorA;
+    if(name==="sort")
+    {
+        console.log('sort');
+        errorA = (document.querySelector(".sorting")).querySelector(".error-array");
+    }
+    else if(name==="ll")
+    {
+        console.log("ll");
+        errorA = (document.querySelector(".linkedlist-controls")).querySelector(".error-array");
+        console.log(errorA);
+    }
 
-    let errorA = (document.querySelector(".sorting")).querySelector(".error-array");
-    console.log(errorA);
     if(arrayInput==="")
     {
+        console.log("arrayInput");
         displayError(errorA, "⚠ Input an array");
         isValid = false;
     }
@@ -213,7 +253,9 @@ function validateInputs_Sort(arrayInput) {
         isValid = false;
     } 
     else 
-    hideError(errorA);
+    {
+        hideError(errorA);
+    }
     console.log(isValid);
     return isValid;
 }
@@ -327,79 +369,6 @@ function swapBars(bars, i, j) {
 
 
 
-// Selection Sort with Visual Swapping and Comparison Highlight
-function mergeSort(array, bars) {
-    let animations = [];
-    mergeSortHelper(array, 0, array.length - 1, animations);
-
-    function animateMergeSort(index = 0) {
-        if (index >= animations.length) {
-            for (let i = 0; i < bars.length; i++) {
-                bars[i].classList.add("sorted");
-            }
-            return;
-        }
-
-        let [type, idx1, idx2, height] = animations[index];
-
-        if (type === "compare") {
-            bars[idx1].classList.add("compare");
-            bars[idx2].classList.add("compare");
-        } else if (type === "swap") {
-            bars[idx1].style.height = `${height}px`;
-        } else if (type === "uncompare") {
-            bars[idx1].classList.remove("compare");
-            bars[idx2].classList.remove("compare");
-        }
-
-        setTimeout(() => animateMergeSort(index + 1), 300);
-    }
-
-    animateMergeSort();
-}
-
-function mergeSortHelper(array, start, end, animations) {
-    if (start >= end) return;
-
-    let mid = Math.floor((start + end) / 2);
-    mergeSortHelper(array, start, mid, animations);
-    mergeSortHelper(array, mid + 1, end, animations);
-    merge(array, start, mid, end, animations);
-}
-
-function merge(array, start, mid, end, animations) {
-    let left = array.slice(start, mid + 1);
-    let right = array.slice(mid + 1, end + 1);
-
-    let i = 0, j = 0, k = start;
-
-    while (i < left.length && j < right.length) {
-        animations.push(["compare", start + i, mid + 1 + j]);
-        if (left[i] <= right[j]) {
-            animations.push(["swap", k, start + i, left[i]]);
-            i++;
-        } else {
-            animations.push(["swap", k, mid + 1 + j, right[j]]);
-            j++;
-        }
-        animations.push(["uncompare", start + i - 1, mid + j]);
-        k++;
-    }
-
-    while (i < left.length) {
-        animations.push(["swap", k, start + i, left[i]]);
-        i++;
-        k++;
-    }
-
-    while (j < right.length) {
-        animations.push(["swap", k, mid + 1 + j, right[j]]);
-        j++;
-        k++;
-    }
-}
-
-
 // Bubble Sort
 function bubbleSort(array, bars) {
     let n = array.length;
@@ -433,6 +402,70 @@ function bubbleSort(array, bars) {
     }
     sortStep();
 }
+async function mergeSort(array, bars, left = 0, right = array.length - 1) {
+    if (left >= right) return; 
+
+    let mid = Math.floor((left + right) / 2);
+
+    await mergeSort(array, bars, left, mid);
+    await mergeSort(array, bars, mid + 1, right);
+    await mergeBars(array, bars, left, mid, right);
+}
+
+async function mergeBars(array, bars, left, mid, right) {
+    let leftArr = array.slice(left, mid + 1);
+    let rightArr = array.slice(mid + 1, right + 1);
+
+    let i = 0, j = 0, k = left;
+
+    while (i < leftArr.length && j < rightArr.length) {
+        bars[k].classList.add("check");
+
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+
+        if (leftArr[i] <= rightArr[j]) {
+            array[k] = leftArr[i];
+            i++;
+        } else {
+            array[k] = rightArr[j];
+            j++;
+        }
+
+        updateBar(bars[k], array[k]);
+        bars[k].classList.remove("check"); 
+        k++;
+    }
+
+    while (i < leftArr.length) {
+        array[k] = leftArr[i];
+        updateBar(bars[k], array[k]);
+        i++;
+        k++;
+        await new Promise(resolve => setTimeout(resolve, 500)); 
+    }
+
+    while (j < rightArr.length) {
+        array[k] = rightArr[j];
+        updateBar(bars[k], array[k]);
+        j++;
+        k++;
+        await new Promise(resolve => setTimeout(resolve, 500));
+    }
+}
+
+function updateBar(bar, value) {
+    bar.style.height = `${value * 7}px`; 
+    bar.textContent = value;
+    bar.style.backgroundColor = "lightgreen"; 
+
+    setTimeout(() => {
+        bar.style.backgroundColor = "blue"; 
+    }, 500);
+}
+
+
+
+
 
 
 // Insertion Sort
@@ -440,7 +473,8 @@ function insertionSort(array, bars) {
     let i = 1, j = 0, key;
 
     function sortStep() {
-        if (i >= array.length) return;
+        if (i >= array.length) 
+            return;
 
         key = array[i];
         j = i - 1;
@@ -467,86 +501,54 @@ function insertionSort(array, bars) {
     sortStep();
 }
 
-function mergeSort(array, bars) {
-   
+function selectionSort(array, bars) {
+    let i = 0, j = 0, minIndex;
 
-    function merge(start, mid, end) {
-        let left = array.slice(start, mid + 1);
-        let right = array.slice(mid + 1, end + 1);
-        let leftIndex = 0, rightIndex = 0, sortedIndex = start;
+    function sortStep() {
+        if (i >= array.length - 1) return;
 
-        function mergeStep() {
-            if (leftIndex < left.length && rightIndex < right.length) {
-                bars[sortedIndex].classList.add("check"); // Highlight checked bar
+        minIndex = i;
+        j = i + 1;
+
+        function findMin() {
+            if (j < array.length) {
+                bars[j].classList.add("check");
 
                 setTimeout(() => {
-                    if (left[leftIndex] < right[rightIndex]) {
-                        array[sortedIndex] = left[leftIndex];
-                        bars[sortedIndex].style.height = `${left[leftIndex]}px`;
-                        leftIndex++;
-                    } else {
-                        array[sortedIndex] = right[rightIndex];
-                        bars[sortedIndex].style.height = `${right[rightIndex]}px`;
-                        rightIndex++;
+                    bars[j].classList.remove("check");
+
+                    if (array[j] < array[minIndex]) {
+                        minIndex = j;
                     }
-                    bars[sortedIndex].classList.remove("check");
-                    sortedIndex++;
-                    mergeStep();
+                    j++;
+                    findMin();
                 }, 500);
             } else {
-                while (leftIndex < left.length) {
-                    bars[sortedIndex].classList.add("check");
-                    setTimeout(() => {
-                        array[sortedIndex] = left[leftIndex];
-                        bars[sortedIndex].style.height = `${left[leftIndex]}px`;
-                        bars[sortedIndex].classList.remove("check");
-                        leftIndex++;
-                        sortedIndex++;
-                    }, 500);
+                if (minIndex !== i) {
+                    swapBars(bars, i, minIndex);
+                    [array[i], array[minIndex]] = [array[minIndex], array[i]];
                 }
-                while (rightIndex < right.length) {
-                    bars[sortedIndex].classList.add("check");
-                    setTimeout(() => {
-                        array[sortedIndex] = right[rightIndex];
-                        bars[sortedIndex].style.height = `${right[rightIndex]}px`;
-                        bars[sortedIndex].classList.remove("check");
-                        rightIndex++;
-                        sortedIndex++;
-                    }, 500);
-                }
+                i++;
+                setTimeout(sortStep, 500);
             }
         }
-        mergeStep();
+        findMin();
     }
-
-    function divide(start, end) {
-        if (start >= end) return;
-
-        let mid = Math.floor((start + end) / 2);
-        
-        setTimeout(() => {
-            divide(start, mid);
-            divide(mid + 1, end);
-            merge(start, mid, end);
-        }, 500);
-    }
-
-    divide(0, array.length - 1);
+    sortStep();
 }
 
 
 // Quick Sort
-function quickSort(array, bars, low = 0, high = array.length - 1) {
+
+async function quickSort(array, bars, low = 0, high = array.length - 1) {
     if (low < high) {
-        let pivotIndex = partition(array, bars, low, high);
-        setTimeout(() => {
-            quickSort(array, bars, low, pivotIndex - 1);
-            quickSort(array, bars, pivotIndex + 1, high);
-        }, 500);
+        let pivotIndex = await partition(array, bars, low, high);
+        await quickSort(array, bars, low, pivotIndex - 1);
+        await quickSort(array, bars, pivotIndex + 1, high);
     }
 }
 
-function partition(array, bars, low, high) {
+async function partition(array, bars, low, high) {
     let pivot = array[high];
     let i = low - 1;
 
@@ -559,10 +561,229 @@ function partition(array, bars, low, high) {
             swapBars(bars, i, j);
         }
 
-        setTimeout(() => bars[j].classList.remove("check"), 500);
+        await sleep(500); // Wait for 500ms before removing the highlight
+        bars[j].classList.remove("check");
     }
 
     [array[i + 1], array[high]] = [array[high], array[i + 1]];
     swapBars(bars, i + 1, high);
     return i + 1;
 }
+
+
+
+
+class Node {
+    constructor(value) {
+        this.value = value;
+        this.next = null;
+        this.prev = null; // For double linked list
+    }
+}
+
+class LinkedList {
+    constructor(type) {
+        this.head = null;
+        this.tail = null;
+        this.type = type; // Single, Double, Circular
+    }
+
+    insertAtHead(value) {
+        console.log(`insert at head ${value}`);
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+            if (this.type === "Circular") 
+                this.tail.next = this.head;
+        } else {
+            if (this.type === "Double" || this.type === "Circular") {
+                newNode.next = this.head;
+                this.head.prev = newNode;
+            } else {
+                newNode.next = this.head;
+            }
+            this.head = newNode;
+            if (this.type === "Circular") this.tail.next = this.head;
+        }
+        this.visualize();
+    }
+
+    insertAtTail(value) {
+        console.log(`insert at tail ${value}`);
+        const newNode = new Node(value);
+        if (!this.head) {
+            this.head = newNode;
+            this.tail = newNode;
+            if (this.type === "Circular") this.tail.next = this.head;
+        } else {
+            this.tail.next = newNode;
+            if (this.type === "Double" || this.type === "Circular") {
+                newNode.prev = this.tail;
+            }
+            this.tail = newNode;
+            if (this.type === "Circular") this.tail.next = this.head;
+        }
+        this.visualize();
+    }
+
+    deleteNode(value) {
+        console.log(`delete  ${value}`);
+        if (!this.head) return;
+        let temp = this.head, prev = null;
+        while (temp) {
+            if (temp.value == value) {
+                if (temp === this.head) {
+                    this.head = temp.next;
+                    if (this.type === "Double" || this.type === "Circular") this.head.prev = null;
+                    if (this.type === "Circular") this.tail.next = this.head;
+                } else if (temp === this.tail) {
+                    this.tail = prev;
+                    this.tail.next = (this.type === "Circular") ? this.head : null;
+                } else {
+                    prev.next = temp.next;
+                    if (this.type === "Double" || this.type === "Circular") temp.next.prev = prev;
+                }
+                break;
+            }
+            prev = temp;
+            temp = temp.next;
+            if (this.type === "Circular" && temp === this.head) break;
+        }
+        this.visualize();
+    }
+
+    searchNode(value) {
+        console.log(`search  ${value}`);
+        let temp = this.head;
+        while (temp) {
+            console.log(typeof(temp.value));
+            console.log(typeof(value));
+            if (temp.value === value) {
+                alert(`Value ${value} found!`);
+                return;
+            }
+            temp = temp.next;
+            if (this.type === "Circular" && temp === this.head) break;
+        }
+        alert(`Value ${value} not found.`);
+    }
+
+   
+
+    visualize() {
+        const container = document.querySelector(".node-container");
+        container.innerHTML = "";
+        let temp = this.head;
+        while (temp) {
+            const nodeElement = document.createElement("div");
+            nodeElement.classList.add("node");
+            nodeElement.innerText = temp.value;
+            container.appendChild(nodeElement);
+            
+            if (temp.next) {
+                const arrow = document.createElement("span");
+                arrow.innerHTML = " → ";
+                if (this.type === "Double") {
+                    arrow.innerHTML = " ←→ "; 
+                }
+                container.appendChild(arrow);
+            }
+            
+            temp = temp.next;
+            if (this.type === "Circular" && temp === this.head) {
+                const circularArrow = document.createElement("span");
+                circularArrow.innerHTML = " ↺ ";
+                container.appendChild(circularArrow);
+                break;
+            }
+        }
+    }
+}
+
+function handlelinkedlistSubmit(event, option) {
+    console.log("handlel");
+    event.preventDefault();
+    let arrayInput = document.querySelector(".linkedlist-controls #array").value.trim();
+    if (validateInput(arrayInput, "ll")) {
+        let array = arrayInput.split(",").map(num => parseInt(num.trim())).filter(num => !isNaN(num));
+        
+        document.querySelector(".linkedlist-controls .controls").style.display = "block";
+        if (option === 'Single') linkedList = new LinkedList("Single");
+        else if (option === 'Double') linkedList = new LinkedList("Double");
+        else if (option === 'Circular') linkedList = new LinkedList("Circular");
+        array.forEach(num => linkedList.insertAtTail(num));
+    }
+}
+
+document.querySelector(".controls #insertHead").addEventListener("click", () => {
+    const searchValue =document.querySelector(".controls #valueInput").value;
+    let errorV=document.querySelector(".controls .error-value");
+    console.log(errorV);
+    let isValid=true;
+    if (searchValue ==="") {
+        displayError(errorV, "⚠ Enter value to insert!");
+        isValid = false;
+    } else if (isNaN(parseInt(searchValue))) {
+        displayError(errorV, "⚠ The search value must be a number!");
+        isValid = false;
+    } else {
+        hideError(errorV);
+    }
+    if (isValid) 
+    linkedList.insertAtHead(parseInt(searchValue));
+});
+
+document.querySelector(".controls #insertTail").addEventListener("click", () => {
+    const searchValue =document.querySelector(".controls #valueInput").value;
+    let errorV=document.querySelector(".controls .error-value");
+    console.log(errorV);
+    let isValid=true;
+    if (searchValue ==="") {
+        displayError(errorV, "⚠ Enter value to insert!");
+        isValid = false;
+    } else if (isNaN(parseInt(searchValue))) {
+        displayError(errorV, "⚠ The search value must be a number!");
+        isValid = false;
+    } else {
+        hideError(errorV);
+    }
+    if (isValid) 
+        linkedList.insertAtTail(parseInt(searchValue));
+});
+
+document.querySelector(".controls  #deleteNodeBtn").addEventListener("click", () => {
+    const searchValue =document.querySelector(".controls #valueInput").value;
+    let errorV=document.querySelector(".controls .error-value");
+    console.log(errorV);
+    let isValid=true;
+    if (searchValue ==="") {
+        displayError(errorV, "⚠ Enter value to insert!");
+        isValid = false;
+    } else if (isNaN(parseInt(searchValue))) {
+        displayError(errorV, "⚠ The search value must be a number!");
+        isValid = false;
+    } else {
+        hideError(errorV);
+    }
+    if (isValid) 
+    linkedList.deleteNode(parseInt(searchValue));
+});
+
+document.querySelector(".controls  #searchNodeBtn").addEventListener("click", () => {
+    const searchValue =document.querySelector(".controls #valueInput").value;
+    let errorV=document.querySelector(".controls .error-value");
+    console.log(errorV);
+    let isValid=true;
+    if (searchValue ==="") {
+        displayError(errorV, "⚠ Enter value to insert!");
+        isValid = false;
+    } else if (isNaN(parseInt(searchValue))) {
+        displayError(errorV, "⚠ The search value must be a number!");
+        isValid = false;
+    } else {
+        hideError(errorV);
+    }
+    if (isValid) 
+    linkedList.searchNode(parseInt(searchValue));
+});
