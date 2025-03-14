@@ -1,6 +1,5 @@
 body{
     font-family:  "Montserrat", sans-serif;;
-    height: 0vh;
     background-image: url('bg.webp');
     background-size:cover;
     font-weight: 600;
@@ -23,10 +22,11 @@ h1{
     text-align: center;
     font-size: 3rem;
 }
-.data-structure,.search-algo, .sort-algo
+
+.data-structure,.search-algo, .sort-algo , .linkedlist-type
 {
     display: flex;
-    font-size:larger;
+    font-size:1.5rem;
     gap: 1rem;
     flex-direction: column;
     justify-content: center;
@@ -35,16 +35,21 @@ h1{
 
 button
 {
+    background-color: white;
     width: fit-content;
     margin-top: 0.5rem;
     font-weight:600;
     font-size:1.25rem;
     border-radius: 1rem;
-    transition: background 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s;
+}
+.back:hover , #start:hover {
+    
+    transform: scale(1.05);
 }
 .Visualizer button
 {
-    color: aliceblue;
+    color:white;
     background-color: rgb(8, 8, 88);
 }
 .Visualizer button:hover
@@ -69,20 +74,33 @@ button
     width:30vw;
     backdrop-filter: blur(20px); 
 }
+.Linkedlist-Visualizer {
+    display: none;
+    color: rgb(58, 35, 7);
+    align-self: center;
+    border: 0.1rem solid rgb(37, 23, 5); 
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 2rem;
+    padding: 1rem; 
+    margin-left: 35vw; 
+    margin-top: 20vh;
+    width:30vw;
+    backdrop-filter: blur(20px); 
+ }
 .button-container {
     width: 100%;
     display: flex;
     justify-content:space-between ;
 }
 
-.Searching-Visualizer #back ,.Searching-Visualizer #select
+.Searching-Visualizer #back ,.Searching-Visualizer #select , .Linkedlist-Visualizer #back ,.Linkedlist-Visualizer #select
 {
     display: flex;
     flex-direction: column;
     color:white;
     background-color: rgb(58, 35, 7); 
 }
-.Searching-Visualizer #back:hover ,.Searching-Visualizer #select:hover
+.Searching-Visualizer #back:hover ,.Searching-Visualizer #select:hover , .Linkedlist-Visualizer #back:hover ,.Linkedlist-Visualizer #select:hover
 {
     color: rgb(58, 35, 7);
     background-color:white;
@@ -104,31 +122,29 @@ button
     width:30vw;
     backdrop-filter: blur(20px); 
 }
-.Linkedlist-Visualizer
-{
-    display: none;
-}
+
 @media(max-width: 830px) 
 {
-    .Visualizer , .Searching-Visualizer,.Linkedlist-Visualizer , .Sorting-Visualizer{
+    .Visualizer , .Searching-Visualizer, .Sorting-Visualizer, .Linkedlist-Visualizer{
         width:50vw;
         margin-left:25vw;
     }
 }
-@media(max-width: 500px) 
+@media(max-width: 600px) 
 {
-    .Visualizer,.Searching-Visualizer,.Linkedlist-Visualizer,.Sorting-Visualizer {
+    .Visualizer,.Searching-Visualizer, .Linkedlist-Visualizer,.Sorting-Visualizer {
         width:70vw;
         margin-left:10vw;
     }
 }
-.searching, .sorting
+.searching, .sorting , .linkedlist-controls
 {
     display: none;
     justify-content: center;
     align-self: center;
     text-align: center;
     color:white;
+    width: 100%;
 
 }
  .back
@@ -142,17 +158,16 @@ button
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1rem;
-    font-family:cursive;
-    
+    font-size: 1rem;    
 }
 .input-array
 {
-    width: 70%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    font-size:large;
 }
 
 
@@ -199,7 +214,7 @@ button
 
 
 input{
-    height: 3vh;
+    height: 5vh;
     font-size: medium;
     font-weight: bold;
     text-align: center;
@@ -222,4 +237,89 @@ input{
 
 .sorted {
     background-color: green !important; /* Final sorted bars */
+}
+/* Linked List Visualizer Styles */
+
+.linkedlist-controls
+{
+    display:none;
+}
+.linkedlist-type {
+    margin-bottom: 20px;
+}
+
+.linkedlist-type label {
+    margin-right: 20px;
+}
+#select-linkedlist-type:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+.controls {
+    display:none;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+
+
+.controls button {
+    padding: 10px 15px;
+    margin: 5px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.controls button:hover {
+    background-color: #0056b3;
+}
+
+.node-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    position: relative;
+    font-size: large;
+    font-weight: 900;
+}
+
+.node {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.9rem;
+    height:3.9rem;
+    border: 0.125rem solid #333;
+    border-radius: 50%;
+    background-color: yellow;
+    color:black;
+    font-size: 1.2rem;
+    font-weight: bold;
+    position: relative;
+}
+
+
+
+.node.highlight {
+    background-color: #ffcccb;
+    border-color: red;
+}
+.arrow
+{
+    font-weight: bolder;
+    font-size: large;
+    width:3vw;
+}
+#valueInput
+{
+    initial-value:"";
 }
