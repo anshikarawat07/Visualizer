@@ -123,22 +123,57 @@
 
 
 
-    <div class="Linkedlist-Visualizer ">
-        <h1>Linkedlist Visualizer</h1>
-        <label >
-            <input type="radio" name="option-search" value="Selection">Selection Sort
-        </label>
-        <label >
-            <input type="radio" name="option-search" value="Insertion">Insertion Sort
-        </label>
-        <label >
-            <input type="radio" name="option-search" value="Bubble">Bubble Sort
-        </label>
-        <div class="button-container">
-            <button id="back">Back</button>
-            <button id="select">Select</button>
+    <div class="Linkedlist-Visualizer">
+        <h1>Linked List Visualizer</h1>
+    
+        <div class="linkedlist-type">
+            <label>
+                <input type="radio" name="option-ll" value="Single" checked> Single Linked List
+            </label>
+            <label>
+                <input type="radio" name="option-ll" value="Double"> Double Linked List
+            </label>
+            <label>
+                <input type="radio" name="option-ll" value="Circular"> Circular Linked List
+            </label>
+            <div class="button-container">
+                <button id="back">Back</button>
+                <button id="select">Select</button>
+            </div>
+        
         </div>
     </div>
+
+    <div class="linkedlist-controls" >
+        <h2 ></h2>
+        <form class="input">
+            <div class="input-array">
+                <label>
+                    INPUT ARRAY <br>
+                    <input id="array" type="text" placeholder="Enter array eg(1,2,3,4)">
+                </label>
+                <div class="error-array"></div>
+            </div>
+            <button id="start" >Start</button>
+        </form>
+            <div class="controls">
+                <input type="textbox" id="valueInput" placeholder="Enter Value">
+                <div class="error-value"></div><br>
+
+                <button id="insertHead">Insert at Head</button>
+                <button id="insertTail">Insert at Tail</button>
+                <button id="deleteNodeBtn">Delete Node</button>
+                <button id="searchNodeBtn">Search Node</button>
+                
+            </div>
+            
+        
+        <!-- Linked List Visualization -->
+        <div class="node-container"></div>
+        <button class="back" >Back</button>
+    </div>
+
+    
 </body>
 <script src="script.js"></script>
 
